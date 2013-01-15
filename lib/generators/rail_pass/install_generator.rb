@@ -5,7 +5,7 @@ module RailPass
   module Generators
     class InstallGenerator < Rails::Generators::Base
       DIRECTORIES = %w(app public spec vendor)
-      FILES_TO_REMOVE = %w(README.rdoc public/index.html public/500.html public/422.html app/assets/images/rails.png app/assets/javascripts/application.js app/assets/javascripts/application.js.coffee app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss app/views/layouts/application.html.haml app/helpers/application_helper.rb test/ vendor/plugins/)
+      FILES_TO_REMOVE = %w(README.rdoc public/index.html public/500.html public/422.html app/assets/images/rails.png app/assets/javascripts/application.js app/assets/javascripts/application.js.coffee app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss app/views/layouts/application.html.erb app/helpers/application_helper.rb test/ vendor/plugins/)
 
       source_root File.join(File.dirname(__FILE__), '../templates')
 
@@ -22,7 +22,7 @@ module RailPass
 
       # Warn about destructive changes & confirm
       def shit_gonna_get_crazy
-        accept = ask("\n#{set_color(set_color("[?]", Thor::Shell::Color::ON_BLACK), Thor::Shell::Color::RED)} These changes are #{set_color("VERY DESTRUCTIVE", Thor::Shell::Color::RED)} and only intended for brand #{set_color("new projects", Thor::Shell::Color::BLUE)}. Proceeding with the installation will wipe out large portions of an existing project. Type 'yes' to continue, anything else to cancel.\n:")
+        accept = ask("\n#{set_color(set_color("[?]", Thor::Shell::Color::ON_BLACK), Thor::Shell::Color::RED)} These changes are #{set_color("VERY DESTRUCTIVE", Thor::Shell::Color::RED)} and only intended for #{set_color("brand-new projects", Thor::Shell::Color::BLUE)}. Proceeding with the installation will wipe out large portions of an existing project. Type 'yes' to continue, anything else to cancel.\n:")
         exit unless accept == "yes"
       end
 
@@ -105,6 +105,7 @@ module RailPass
       # 
       def application_configuration
         # Routes
+        route 'mount RailPass::Engine, :at => "styleguide"'
         route 'root :to => "pages#index"'
         # Time zone
         gsub_file 'config/application.rb', /# config.time_zone = '.+'/ do

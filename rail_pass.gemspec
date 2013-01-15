@@ -4,20 +4,17 @@ $:.push File.expand_path("../lib", __FILE__)
 require "rail_pass/version"
 
 # Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-  s.name        = "rail_pass"
-  s.version     = RailPass::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailPass."
-  s.description = "TODO: Description of RailPass."
+Gem::Specification.new do |gem|
+  gem.name        = "rail_pass"
+  gem.version     = RailPass::VERSION
+  gem.authors     = ["Michael LaCroix", "James LaCroix"]
+  gem.email       = ["info@lacroixdesign.net"]
+  gem.summary     = "Rail Pass is a Ruby on Rails engine to configure new projects."
+  gem.description = "Rail Pass is a Ruby on Rails engine to configure new projects with the default settings and templates used at LaCroix Design Co."
+  gem.homepage    = "https://github.com/lacroixdesign/rail_pass"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  gem.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  gem.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.11"
-  # s.add_dependency "jquery-rails"
-
-  s.add_development_dependency "sqlite3"
+  gem.add_dependency "rails", "~> 3.2.11"
 end
