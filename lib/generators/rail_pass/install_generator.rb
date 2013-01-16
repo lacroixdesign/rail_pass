@@ -97,7 +97,7 @@ module RailPass
         DIRECTORIES.each do |dir|
           directory dir, dir
         end
-        copy_file ".rspec"
+        create_file ".rspec", "--color"
         copy_file "config/initializers/dev_environment.rb"
       end
 
