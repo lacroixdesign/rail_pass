@@ -19,11 +19,15 @@ module RailPass
                    :desc => "Database option: 'postgresql' or 'mongodb'", :aliases => "-b"
       class_option :'app-server', :type => :string, :default => "unicorn", :banner => "NAME",
                    :desc => "Database option: 'unicorn', 'puma', or 'thin'", :aliases => "-a"
+      class_option :destructive, :type => :string, :default => nil, :banner => "",
+                   :desc => "Option to skip the destructive confirmation prompt"
 
       # Warn about destructive changes & confirm
       def shit_gonna_get_crazy
-        accept = ask("\n#{set_color(set_color("[?]", Thor::Shell::Color::ON_BLACK), Thor::Shell::Color::RED)} These changes are #{set_color("VERY DESTRUCTIVE", Thor::Shell::Color::RED)} and only intended for #{set_color("brand-new projects", Thor::Shell::Color::BLUE)}. Proceeding with the installation will wipe out large portions of an existing project. Type 'yes' to continue, anything else to cancel.\n:")
-        exit unless accept == "yes"
+        unless options[:destructive]
+          accept = ask("\n#{set_color(set_color("[?]", Thor::Shell::Color::ON_BLACK), Thor::Shell::Color::RED)} These changes are #{set_color("VERY DESTRUCTIVE", Thor::Shell::Color::RED)} and only intended for #{set_color("brand-new projects", Thor::Shell::Color::BLUE)}. Proceeding with the installation will wipe out large portions of an existing project. Type 'yes' to continue, anything else to cancel.\n:")
+          exit unless accept == "yes"
+        end
       end
 
       # Add necessary gems
