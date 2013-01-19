@@ -139,7 +139,7 @@ module RailPass
           "config.assets.precompile += %w( responsive.js html5.js polyfills.js )"
         end
         %w(config/initializers/dev_environment.rb .powder).each do |ignored|
-          append_file ".gitignore", ignored
+          append_file ".gitignore", ignored + "\n"
         end
       end
 
