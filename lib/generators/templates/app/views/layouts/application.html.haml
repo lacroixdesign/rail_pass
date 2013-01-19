@@ -1,5 +1,8 @@
 !!! 5
-  
+<!--[if lt IE 7]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
 %html
 
   / 
@@ -81,13 +84,13 @@
             to improve your experience.
 
 
-    %header.header
+    %header#grid-header
       
       
     = yield
     
     
-    %footer.footer
+    %footer#grid-footer
     
     
     
@@ -121,4 +124,4 @@
     - if Rails.env.development?
       #lacroixdesign-browserwidth{style: "position:fixed; bottom:0; left:0; background:#555; color:#CCC; font-size:0.75em; padding:0.25em; text-shadow: 0 -1px 1px rgba(0,0,0,0.9); font-weight:normal;"}
       :javascript
-        function showWidth(){var w = $(window).width();$('#dev-browserwidth').text(w);}showWidth();$(window).resize(function(){showWidth();});
+        function showWidth(){var w = $(window).width();$('#lacroixdesign-browserwidth').text(w);}showWidth();$(window).resize(function(){showWidth();});
