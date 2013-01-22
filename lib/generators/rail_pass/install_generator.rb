@@ -5,7 +5,7 @@ module RailPass
   module Generators
     class InstallGenerator < Rails::Generators::Base
       DIRECTORIES = %w(app public spec vendor)
-      FILES_TO_REMOVE = %w(README.rdoc public/index.html public/500.html public/422.html app/assets/images/rails.png app/assets/javascripts/application.js app/assets/javascripts/application.js.coffee app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss app/views/layouts/application.html.erb app/helpers/application_helper.rb test/ vendor/plugins/)
+      FILES_TO_REMOVE = %w(README.rdoc public/index.html public/500.html public/404.html public/422.html app/assets/images/rails.png app/assets/javascripts/application.js app/assets/javascripts/application.js.coffee app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss app/views/layouts/application.html.erb app/helpers/application_helper.rb test/ vendor/plugins/)
 
       source_root File.join(File.dirname(__FILE__), '../templates')
 
