@@ -1,5 +1,5 @@
 !!! 5
-/[if lt IE 9] <html class="ie8" lang="en">
+/[if lt IE 9] <html class="ie8 old-ie" lang="en">
 <!--[if gte IE 9]><!-->
 %html{ lang: "en" }
   <!--<![endif]-->
@@ -31,13 +31,6 @@
     %meta{name: "description", content: "FIXME: APPLICATION DESCRIPTION"}
     %meta{name: "author", content: "Michael LaCroix, James LaCroix"}
     %meta{:'http-equiv' => "X-UA-Compatible", content: "chrome=1"}
-
-    -# koko wa Facebook meta
-    / %meta{name: "og:title", content: "#{@fb_title || 'FIXME: APPLICATION NAME'}"}
-    / %meta{name: "og:image", content: ""}
-    / %meta{name: "og:type", content: "website"}
-    / %meta{name: "og:site_name", content: "FIXME: APPLICATION NAME"}
-    / %meta{name: "og:admins", content: ""}
     
     -# koko wa fav and touch icons (reside in the /public folder), plus iOS meta
     / %link{rel: "shortcut icon", href: "#{root_url}/favicon.png"}
@@ -45,6 +38,8 @@
     / %link{rel: "apple-touch-icon-precomposed", sizes: "72x72", href: "#{root_url}/apple-touch-icon-72x72-precomposed.png"}
     / %link{rel: "apple-touch-icon-precomposed", sizes: "114x114", href: "#{root_url}/apple-touch-icon-114x114-precomposed.png"}
     / %link{rel: "apple-touch-icon-precomposed", sizes: "144x144", href: "#{root_url}/apple-touch-icon-144x144-precomposed.png"}
+    / %meta{name: "msapplication-TileColor", content: "#ffffff"}
+    / %meta{name: "msapplication-TileImage", content: "#{root_url}/windows-icon.png"}
     %meta{name: "viewport", content: "initial-scale=1.0, width=device-width, user-scalable=no, maximum-scale=1.0"}
     %meta{name: "apple-mobile-web-app-capable", content: "yes"}
     %meta{name: "apple-mobile-web-app-status-bar-style", content:"black"}
@@ -59,7 +54,6 @@
     /[if lt IE 9]
       = javascript_include_tag "polyfills"
     
-    = javascript_include_tag "responsive"
     = csrf_meta_tags
     
     -# koko wa Typekit -- replace VVVVVVV with the proper kit code
@@ -82,13 +76,13 @@
           to improve your experience.
 
 
-    %header#grid-header
+    %header#l-header
       
       
     = yield
     
     
-    %footer#grid-footer
+    %footer#l-footer
     
     
     

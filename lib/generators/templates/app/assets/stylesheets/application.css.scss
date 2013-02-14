@@ -2,10 +2,10 @@
 @import "bourbon";
 @import "neat";
 @import "boarding_pass";
-@import "font-awesome";
 @import "icomoon";
 
 // Mixins
+@import "mixins/ie";
 
 // Base
 @import "base/settings";

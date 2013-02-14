@@ -136,7 +136,7 @@ module RailPass
         end
         # Assets to precompile
         gsub_file 'config/environments/production.rb', /# config.assets.precompile.*/ do
-          "config.assets.precompile += %w( responsive.js html5.js polyfills.js )"
+          "config.assets.precompile += %w( html5.js polyfills.js )"
         end
         %w(config/initializers/dev_environment.rb .powder).each do |ignored|
           append_file ".gitignore", ignored + "\n"
