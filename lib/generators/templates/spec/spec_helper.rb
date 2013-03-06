@@ -11,6 +11,7 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'shoulda-matchers'
   require 'shoulda/matchers/integrations/rspec'
+  require 'database_cleaner'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
   # Capybara.javascript_driver = :poltergeist
