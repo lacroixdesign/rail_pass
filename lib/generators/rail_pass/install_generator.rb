@@ -11,6 +11,7 @@ module RailPass
 
       desc "Adds files, gems, and config settings for Rail Pass"
 
+      ##
       # Options
       # 
       class_option :deployment, :type => :string, :default => "heroku", :banner => "NAME",
@@ -22,7 +23,9 @@ module RailPass
       class_option :destructive, :type => :string, :default => nil, :banner => "",
                    :desc => "Option to skip the destructive confirmation prompt"
 
+      ##
       # Warn about destructive changes & confirm
+      #
       def shit_gonna_get_crazy
         unless options[:destructive]
           accept = ask("\n#{set_color(set_color("[?]", Thor::Shell::Color::ON_BLACK), Thor::Shell::Color::RED)} These changes are #{set_color("VERY DESTRUCTIVE", Thor::Shell::Color::RED)} and only intended for #{set_color("brand-new projects", Thor::Shell::Color::BLUE)}. Proceeding with the installation will wipe out large portions of an existing project. Type 'yes' to continue, anything else to cancel.\n:")
@@ -30,63 +33,64 @@ module RailPass
         end
       end
 
+      ##
       # Add necessary gems
       # 
       def add_gems
         gem_group :development do
-          gem "quiet_assets"
-          gem "letter_opener"
-          gem "thin"
-          gem "awesome_print"
-          gem "hirb"
-          gem "better_errors"
-          gem "binding_of_caller"
-          gem "pry"
+          gem 'quiet_assets'
+          gem 'letter_opener'
+          gem 'thin'
+          gem 'awesome_print'
+          # gem 'hirb'
+          gem 'better_errors'
+          gem 'binding_of_caller'
+          gem 'pry'
         end
         gem_group :development, :test do
-          gem "rspec-rails"
-          gem "database_cleaner"
+          gem 'rspec-rails'
+          gem 'database_cleaner'
+          gem 'dotenv'
         end
         gem_group :test do
-          gem "capybara"
-          gem "shoulda-matchers"
-          gem "spork-rails"
+          gem 'capybara'
+          gem 'shoulda-matchers'
+          gem 'spork-rails'
         end
-        gem "exception_notification", "2.6.1"
-        gem "haml-rails"
-        gem "boarding_pass"
-        gem "foreman"
+        gem 'exception_notification', '2.6.1'
+        gem 'slim'
+        gem 'boarding_pass'
+        gem 'foreman'
 
-        if options[:database] == "mongodb"
-          gem "bson_ext"
-          gem "mongoid"
+        if options[:database] == 'mongodb'
+          gem 'bson_ext'
+          gem 'mongoid'
         else
-          gem "pg",        group: :production
-          gem "sqlite3",   group: :development
-          gem "rails-erd", group: :development
-        end
-
-        if options[:'app-server'] == "puma"
-          gem "puma"
-        elsif options[:'app-server'] == "thin"
-          gem "thin"
-        else
-          gem "unicorn"
+          gem 'pg',        group: :production
+          gem 'sqlite3',   group: :development
+          # gem 'rails-erd', group: :development
         end
 
-        if options[:deployment] == "capistrano"
-          gem "capistrano"
+        if options[:'app-server'] == 'puma'
+          gem 'puma'
+        elsif options[:'app-server'] == 'thin'
+          gem 'thin'
         else
-          gem "newrelic_rpm"
+          gem 'unicorn'
         end
-        # inside Rails.root do
-        #   run "bundle install"
-        # end
+
+        if options[:deployment] == 'capistrano'
+          gem 'capistrano'
+        else
+          gem 'newrelic_rpm'
+        end
+
         Bundler.with_clean_env do
           run "bundle install"
         end
       end
 
+      ##
       # Delete files on first-run
       # 
       def remove_files
@@ -95,6 +99,7 @@ module RailPass
         end
       end
 
+      ##
       # Add default files & resources
       # 
       def add_files
@@ -102,15 +107,15 @@ module RailPass
           directory dir, dir
         end
         create_file ".rspec", "--color"
-        copy_file "config/initializers/dev_environment.rb"
       end
 
+      ##
       # Application configuration
       # 
       def application_configuration
         # Routes
         route 'mount RailPass::Engine, :at => "styleguide"'
-        route 'root :to => "pages#index"'
+        route 'root :to => "static#index"'
         # Time zone
         gsub_file 'config/application.rb', /# config.time_zone = '.+'/ do
           "config.time_zone = \"Central Time (US & Canada)\""
@@ -138,11 +143,12 @@ module RailPass
         gsub_file 'config/environments/production.rb', /# config.assets.precompile.*/ do
           "config.assets.precompile += %w( html5.js polyfills.js )"
         end
-        %w(config/initializers/dev_environment.rb .powder).each do |ignored|
+        %w(.powder .env).each do |ignored|
           append_file ".gitignore", ignored + "\n"
         end
       end
 
+      ##
       # Deployment configuration
       # 
       def configure_deployment
@@ -173,17 +179,17 @@ module RailPass
           # Email via SendGrid
           inject_into_class "config/environments/development.rb", "Application" do
             production_email = <<-eos.gsub(/^ {10}/,'')
-            # Sending Email :: SendGrid
+            # Sending Email :: Mandrill
             # 
             # config.action_mailer.default_url_options = { host: "EXAMPLE.COM" }  # FIXME replace with proper :host
             config.action_mailer.delivery_method = :smtp
             config.action_mailer.smtp_settings = {
-              :address        => 'smtp.sendgrid.net',
               :port           => '587',
-              :authentication => :plain,
-              :user_name      => ENV['SENDGRID_USERNAME'],
-              :password       => ENV['SENDGRID_PASSWORD'],
-              :domain         => 'heroku.com'
+              :address        => 'smtp.mandrillapp.com',
+              :user_name      => ENV['MANDRILL_USERNAME'],
+              :password       => ENV['MANDRILL_APIKEY'],
+              :domain         => 'heroku.com',
+              :authentication => :plain
             }
             eos
             production_email
@@ -191,6 +197,7 @@ module RailPass
         end
       end
 
+      ##
       # Database configuration
       # 
       def configure_database
