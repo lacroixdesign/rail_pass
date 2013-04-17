@@ -50,7 +50,7 @@ module RailPass
         gem_group :development, :test do
           gem 'rspec-rails'
           gem 'database_cleaner'
-          gem 'dotenv'
+          gem 'dotenv-rails'
         end
         gem_group :test do
           gem 'capybara'
