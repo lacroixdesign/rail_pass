@@ -4,34 +4,34 @@
 %html{ lang: "en" }
   <!--<![endif]-->
 
-  / 
+  /
     _
     _
     _          ///   ///    ..oOOOo..
     _         ///   ///  .:OOOOOOOOOOO:.
     _        ///   ///  .OOOOOOOOOOOOOOO.
-    _       ///   ///   OOOOOOOOOOOOOOOOO 
+    _       ///   ///   OOOOOOOOOOOOOOOOO
     _      ///   ///    OOOOOOOOOOOOOOOOO
-    _     ///   ///     OOOOOOOOOOOOOOOOO 
+    _     ///   ///     OOOOOOOOOOOOOOOOO
     _    ///   ///      `OOOOOOOOOOOOOOO'
     _   ///   ///        `:OOOOOOOOOOO:'
     _  ///   ///            ''*OOO*''
-    _  
+    _
     _  Designed & Developed by LaCroix Design Co.
     _    http://lacroixdesign.net
-    _  
-    _  
     _
-  
+    _
+    _
+
   %head
     %meta(charset="utf-8")
     %title=raw [yield(:title), "FIXME: APPLICATION NAME"].reject(&:blank?).join(' | ')
-    
+
     -# koko wa general meta
     %meta{name: "description", content: "FIXME: APPLICATION DESCRIPTION"}
     %meta{name: "author", content: "Michael LaCroix, James LaCroix"}
     %meta{:'http-equiv' => "X-UA-Compatible", content: "chrome=1"}
-    
+
     -# koko wa fav and touch icons (reside in the /public folder), plus iOS meta
     / %link{rel: "shortcut icon", href: "#{root_url}favicon.ico"}
     / %link{rel: "apple-touch-icon", href: "#{root_url}apple-touch-icon-57x57-precomposed.png"}
@@ -47,23 +47,23 @@
     -# koko wa HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
       = javascript_include_tag "html5"
-    
+
     = stylesheet_link_tag "application", media: "all"
 
     -# koko wa CSS3 polyfill, IE6-8 support of CSS3 pseudo-classes with Selectivizr
     /[if lt IE 9]
       = javascript_include_tag "polyfills"
-    
+
     = csrf_meta_tags
-    
+
     -# koko wa Typekit -- replace VVVVVVV with the proper kit code
     / %script{ type: "text/javascript", src: "//use.typekit.net/VVVVVVV.js" }
     / :javascript
     /   try{Typekit.load();}catch(e){}
-  
-  
-  
-  
+
+
+
+
   %body
     /[if lt IE 9]
       #outdated-browser.outdated-browser
@@ -77,24 +77,24 @@
 
 
     %header#l-header
-      
-      
-    = yield
-    
-    
-    %footer#l-footer
-    
-    
-    
 
-    
-    
-    
-    
+
+    = yield
+
+
+    %footer#l-footer
+
+
+
+
+
+
+
+
     -# koko wa javascript
     = javascript_include_tag "application"
-    
-    
+
+
     -# koko wa Google Analytics -- replace VVVVVVVV-V with the proper code
     - if Rails.env.production?
       :javascript
@@ -110,8 +110,8 @@
 
 
 
-    
-    
+
+
     -# koko wa Width Plugin
     - if Rails.env.development?
       #lacroixdesign-browserwidth{style: "position:fixed; bottom:0; left:0; background:#555; color:#CCC; font-size:0.75em; padding:0.25em; text-shadow: 0 -1px 1px rgba(0,0,0,0.9); font-weight:normal;"}

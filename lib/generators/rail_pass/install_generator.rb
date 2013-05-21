@@ -13,7 +13,7 @@ module RailPass
 
       ##
       # Options
-      # 
+      #
       class_option :deployment, :type => :string, :default => "heroku", :banner => "NAME",
                    :desc => "Deployment method: 'heroku' or 'capistrano'", :aliases => "-d"
       class_option :database, :type => :string, :default => "postgresql", :banner => "NAME",
@@ -35,7 +35,7 @@ module RailPass
 
       ##
       # Add necessary gems
-      # 
+      #
       def add_gems
         gem_group :development do
           gem 'quiet_assets'
@@ -92,7 +92,7 @@ module RailPass
 
       ##
       # Delete files on first-run
-      # 
+      #
       def remove_files
         FILES_TO_REMOVE.each do |file|
           remove_file file
@@ -101,7 +101,7 @@ module RailPass
 
       ##
       # Add default files & resources
-      # 
+      #
       def add_files
         DIRECTORIES.each do |dir|
           directory dir, dir
@@ -111,7 +111,7 @@ module RailPass
 
       ##
       # Application configuration
-      # 
+      #
       def application_configuration
         # Routes
         route 'mount RailPass::Engine, :at => "styleguide"'
@@ -124,7 +124,7 @@ module RailPass
         inject_into_class "config/environments/development.rb", "Application" do
           dev_email = <<-eos.gsub(/^ {10}/,'')
           # Open emails in browser
-          # 
+          #
           config.action_mailer.delivery_method = :letter_opener
           # config.action_mailer.default_url_options = { host: "localhost:3000" }  # FIXME replace with correct :host
           eos
@@ -150,7 +150,7 @@ module RailPass
 
       ##
       # Deployment configuration
-      # 
+      #
       def configure_deployment
         if options[:deployment] == "capistrano"
           %w(Capfile config/deploy.rb).each do |file|
@@ -176,11 +176,11 @@ module RailPass
           cache_assets_config  = "config.serve_static_assets  = true\n"
           cache_assets_config += "config.static_cache_control = \"public, max-age=31536000\""
           gsub_file 'config/environments/production.rb', /config.serve_static_assets.*/, cache_assets_config
-          # Email via SendGrid
+          # Email
           inject_into_class "config/environments/development.rb", "Application" do
             production_email = <<-eos.gsub(/^ {10}/,'')
             # Sending Email :: Mandrill
-            # 
+            #
             # config.action_mailer.default_url_options = { host: "EXAMPLE.COM" }  # FIXME replace with proper :host
             config.action_mailer.delivery_method = :smtp
             config.action_mailer.smtp_settings = {
@@ -199,7 +199,7 @@ module RailPass
 
       ##
       # Database configuration
-      # 
+      #
       def configure_database
         if options[:database] == "mongodb"
           remove_file "config/database.yml"
